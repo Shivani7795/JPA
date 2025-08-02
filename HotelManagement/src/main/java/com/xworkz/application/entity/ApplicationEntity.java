@@ -14,6 +14,13 @@ import java.time.LocalDate;
 @RequiredArgsConstructor
 @ToString
 @Table(name = "application_info")
+@NamedQuery(name = "findByApplicationName",query = "select a from ApplicationEntity a where a.applicationName=:name")
+@NamedQuery(name = "findByApplicationName",query = "select a from ApplicationEntity a where a.applicationSize=:size")
+@NamedQuery(name = "findByApplicationName",query = "select a from ApplicationEntity a where a.applicationName=:company")
+@NamedQuery(name = "findByApplicationName",query = "select a from ApplicationEntity a where a.applicationName=:noOfUsers")
+@NamedQuery(name = "findByApplicationName",query = "select a from ApplicationEntity a where a.applicationName=:rating")
+@NamedQuery(name = "findByApplicationName",query = "select a from ApplicationEntity a where a.applicationName=:lunchTime")
+
 public class ApplicationEntity {
 
     @Id
