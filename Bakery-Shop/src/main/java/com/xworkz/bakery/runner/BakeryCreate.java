@@ -30,7 +30,9 @@ public class BakeryCreate {
             if (et != null && et.isActive()) {
                 et.rollback();
             }
-        } finally {
+        }
+        finally
+        {
             if (em != null) {
                 em.close();
             }
