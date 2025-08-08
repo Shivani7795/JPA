@@ -162,6 +162,7 @@ public class ApplicationRepositoryImpl implements ApplicationRepository {
         return null;
     }
 
+
     @Override
     public ApplicationEntity getApplicationByLunchTime(LocalDate localDate) {
         return null;
