@@ -16,5 +16,7 @@ public class TourismInitializer extends AbstractAnnotationConfigDispatcherServle
     @Override
     protected String[] getServletMappings() {
         return new String[]  {"/saveTourism"};
+
+
     }
 }
