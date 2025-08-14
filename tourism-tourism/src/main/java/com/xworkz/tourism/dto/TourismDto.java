@@ -1,5 +1,9 @@
 package com.xworkz.tourism.dto;
 
+
+import lombok.Data;
+
+@Data
 public class TourismDto {
 
     private Integer packageId;

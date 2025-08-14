@@ -12,7 +12,9 @@ import javax.persistence.*;
 @RequiredArgsConstructor
 @ToString
 @Table(name = "tourism_info")
-@NamedQuery(name = "findBy",query = "select a from ApplicationEntity a where a.applicationName=:name")
+@NamedQuery(name = "findById",query = "select a from TourismEntity a where a.packageId=:id")
+@NamedQuery(name = "getAllEntity",query = "select a from TourismEntity a")
+@NamedQuery(name = "update",query = "update TourismEntity e set e.packageName=:packageName,e.destination=:destination, e.days=:days,e.packagePrice=:packagePrice,e.personCount=:personCount where e.packageId=:packageId")
 
 public class TourismEntity {
 

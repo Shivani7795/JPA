@@ -1,56 +1,126 @@
 package com.xworkz.tourism.repository;
 
 import com.xworkz.tourism.entity.TourismEntity;
+import com.xworkz.tourism.utils.DBConnection;
+import org.hibernate.QueryException;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
+import java.util.List;
+import java.util.Optional;
 
+@Repository
 public class TourismRepositoryImpl implements TourismRepository{
 
     EntityManagerFactory emf = null;
     EntityManager em = null;
     EntityTransaction et = null;
     TourismEntity entity;
+    List<TourismEntity> list=null;
+    Optional<TourismEntity> optional =null;
 
     @Override
-    public void saveTourism(TourismEntity tourismEntity) {
+    public boolean save(TourismEntity tourismEntity) {
+
+        System.out.println("save method in TourismRepositoryImpl");
+        System.out.println("Repository data: "+tourismEntity);
         try {
-            emf = Persistence.createEntityManagerFactory("x-workz");
-            em = emf.createEntityManager();
+            em = DBConnection.getEntityManager();
             et = em.getTransaction();
             et.begin();
             em.persist(tourismEntity);
             et.commit();
         } catch (PersistenceException e) {
-            e.printStackTrace();
-            System.out.println("Exception in saveTourism");
-        } finally {
-            if (em != null) {
-                em.close();
+            System.out.println(e.getMessage());
+            if(et!=null)
+            {
+                et.rollback();
+                System.out.println("roll backed");
+                return false;
             }
-            if (emf != null) {
-                emf.close();
+        }finally {
+            if(em!=null && em.isOpen())
+            {
+                em.close();
+                System.out.println("entityManager is closed");
             }
         }
+        return true;
+    }
+
+
+    @Override
+    public List<TourismEntity> getAllEntity() {
+        try{
+            em=DBConnection.getEntityManager();
+            list =em.createNamedQuery("getAllEntity").getResultList();
+        }catch (PersistenceException e)
+        {
+            System.out.println(e.getMessage());
+
+        }finally {
+            if(em!=null && em.isOpen())
+            {
+                em.close();
+                System.out.println("Entity manager is closed");
+            }
+        }
+        return list;
     }
 
     @Override
-    public TourismEntity findById(Integer tourismId) {
+    public Optional<TourismEntity> findById(Integer id) {
         try{
-            emf = Persistence.createEntityManagerFactory("x-workz");
-            em = emf.createEntityManager();
-            et = em.getTransaction();
-            et.begin();
-            entity = (TourismEntity) em.createNamedQuery("findById").setParameter("tourismId",tourismId).getSingleResult();
-            System.out.println("findById:"+entity);
-            et.commit();
-        }catch (PersistenceException e){
-            e.printStackTrace();
-            System.out.println("exception in getApplicationByName");
-        }if(emf!=null){
-            emf.close();
-        }if(em!=null){
-            em.close();
+            em=DBConnection.getEntityManager();
+            TourismEntity tourism=(TourismEntity) em.createNamedQuery("findById").setParameter("id",id).getSingleResult();
+            if(tourism!=null)
+            {
+                return Optional.of(tourism);
+            }
+        }catch (PersistenceException e)
+        {
+            System.out.println(e.getMessage());
+        }finally {
+            if(em!=null && em.isOpen())
+            {
+                em.close();
+                System.out.println("Entity manager is closed");
+            }
         }
-        return entity;
+        return optional;
     }
+
+    @Override
+    public boolean update(TourismEntity entity) {
+        boolean isUpdated = false;
+        try {
+            em = DBConnection.getEntityManager();
+            em.getTransaction().begin();
+            int check = em.createNamedQuery("update").setParameter("packageName", entity.getPackageName())
+                    .setParameter("destination", entity.getDestination())
+                    .setParameter("days", entity.getDays())
+                    .setParameter("packagePrice", entity.getPackagePrice())
+                    .setParameter("personCount", entity.getPersonCount())
+                    .executeUpdate();
+            if (check > 0) {
+                em.getTransaction().commit();
+                isUpdated = true;
+
+            }
+        } catch (NoResultException | QueryException e) {
+            System.out.println(e.getMessage());
+            em.getTransaction().rollback();
+        } finally {
+            if (em != null && em.isOpen()) {
+                em.close();
+            }
+        }
+        return isUpdated;
+    }
+
+
+    /*
+
+
+     */
 }

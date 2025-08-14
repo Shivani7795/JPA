@@ -1,33 +1,84 @@
-<html>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ page isELIgnored="false" %>
+<html lang="en" xmlns:c="">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Tourism</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
+          crossorigin="anonymous"/>
+</head>
+
 <body>
+<nav class="navbar navbar-expand-lg" style="background-color: pink; ">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link " href="getIndex">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="redirectToTourism">Tourism Form</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="getAllEntity">Get All</a>
+                </li>
 
-
-
-
-<!--<tr>-->
-<!--    <td>${ref.packageId}</td>-->
-<!--    <td>${ref.packageName}</td>-->
-<!--    <td>${ref.packagePrice}</td>-->
-<!--    <td>${ref.destination}</td>-->
-<!--    <td>${ref.days}</td>-->
-<!--    <td>${ref.packageCount}</td>-->
-<!--    <td><a href="view?id=${ref.packageId}"</td>-->
-<!--</tr>-->
-
-
-<div class="details-box">
-    <div class="success-message">
-        <h3>Tourism Package Saved Successfully!</h3>
+            </ul>
+            <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+                <button class="btn btn-outline-success text-dark" type="submit">Search</button>
+            </form>
+        </div>
     </div>
-    <h2>Package Details</h2>
-    <h3>Package Name: ${tourismDto.packageName}</h3>
-    <h3>Destination: ${tourismDto.destination}</h3>
-    <h3>Number of Days: ${tourismDto.days}</h3>
-    <h3>Package Price: ${tourismDto.packagePrice}</h3>
-    <h3>Person Count: ${tourismDto.personCount}</h3>
-    <td><a href="view?id=${ref.packageId}"view></a></td>
+</nav>
 
+<div class="d-flex justify-content-center">
+    <table class="table table-hover w-75">
+        <thead>
+        <tr>
+            <th scope="col">Package Id</th>
+            <th scope="col">Package Name</th>
+            <th scope="col">Destination</th>
+            <th scope="col">Days</th>
+            <th scope="col">Price</th>
+            <th scope="col">Person count</th>
+            <th scope="col">View</th>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach var="ref" items="${listOfDto}">
+            <tr>
+                <td>${ref.packageId}</td>
+                <td>${ref.packageName}</td>
+                <td>${ref.destination}</td>
+                <td>${ref.days}</td>
+                <td>${ref.packagePrice}</td>
+                <td>${ref.personCount}</td>
+                <td><a href="view?id=${ref.packageId}">View</a>/ <a href="edit?id=${ref.packageId}">edit</a></td>
+
+
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
 </div>
 
+
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.min.js"
+        integrity="sha384-7qAoOXltbVP82dhxHAUje59V5r2YsVfBafyUDxEdApLPmcdhBPg1DKg1ERo0BZlK"
+        crossorigin="anonymous"></script>
 </body>
+
 </html>
