@@ -90,5 +90,7 @@ public class TourismController {
     public String edit(TourismDto dto,Model model){
         System.out.println("edit method in controller");
         String
+
+
     }
 }
