@@ -74,11 +74,11 @@ public class TourismController {
         return "DisplayId";
     }
 
-    @GetMapping("update/id")
-    public String Update(@PathVariable("id")String id,Model model){
+    @GetMapping("update")
+    public String Update(@RequestParam("id")String id,Model model){
         System.out.println("update method in controller");
         System.out.println("id"+id);
-        Optional<TourismDto> optionalTourismDTO=tourismService.findById(Integer.parseInt(id));
+        Optional<TourismDto> optionalTourismDTO=tourismService.findById(Integer.valueOf(id));
         if(optionalTourismDTO.isPresent()){
             System.out.println("data is present");
             System.out.println(optionalTourismDTO.get());
@@ -86,12 +86,26 @@ public class TourismController {
         }
         return "update";
     }
-    @PostMapping("update")
-    public String edit(TourismDto dto,Model model){
+    @PostMapping("editTourism")
+    public String editTourism(TourismDto dto, Model model) {
         System.out.println("edit method in controller");
-        String
+        String message = tourismService.updateTourism(dto);
+        System.out.println(message);
 
+        List<TourismDto> list = tourismService.getAllEntity();
+        model.addAttribute("listOfDto", list); // keep consistent name
+        model.addAttribute("message", message);
 
-
+        return "listOfTourism";
     }
+
+//    @GetMapping("delete/{id}")
+//    public String deleteTourism(@PathVariable("id")String id,Model model){
+//        System.out.println("delete method in controller");
+//        String deleted = tourismService.updateTourism(dto);
+//        model.addAttribute("message","deleted");
+//        List<TourismDto> list = tourismService.getAllEntity();
+//        model.addAttribute("ListOfDto",list);
+//        return "redirect:/getAllEntity";
+//    }
 }

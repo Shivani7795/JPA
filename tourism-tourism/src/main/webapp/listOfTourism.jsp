@@ -62,7 +62,7 @@
                 <td>${ref.days}</td>
                 <td>${ref.packagePrice}</td>
                 <td>${ref.personCount}</td>
-                <td><a href="view?id=${ref.packageId}">View</a>/ <a href="edit?id=${ref.packageId}">edit</a></td>
+                <td><a href="view?id=${ref.packageId}">View</a>/ <a href="update?id=${ref.packageId}">Edit</a></td>
 
 
             </tr>

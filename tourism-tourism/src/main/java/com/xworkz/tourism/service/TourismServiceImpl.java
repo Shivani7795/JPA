@@ -23,9 +23,8 @@ public class TourismServiceImpl implements TourismService {
             System.out.println("validate method in service");
             System.out.println("Service data: " + tourismDto);
 
-
-
                 TourismEntity tourism = new TourismEntity();
+//            BeanUtils.copyProperties(tourismDto,tourism);
                 tourism.setPackageName(tourismDto.getPackageName());
                 tourism.setDestination(tourismDto.getDestination());
                 tourism.setDays(tourismDto.getDays());
@@ -73,11 +72,11 @@ public class TourismServiceImpl implements TourismService {
                     dto.setDays(entity.getDays());
                     dto.setDestination(entity.getDestination());
                     dto.setPackageName(entity.getPackageName());
-                    Optional<TourismDto> optionalTourismDTO = Optional.of(dto);
-                    return optionalTourismDTO;
+                    Optional<TourismDto> optionalTourismDto = Optional.of(dto);
+                    return optionalTourismDto;
                 }
             } else {
-                System.out.println("id in not valid");
+                System.out.println("id is not valid");
             }
             return Optional.empty();
         }
@@ -86,6 +85,7 @@ public class TourismServiceImpl implements TourismService {
     public String updateTourism(TourismDto dto) {
             TourismEntity entity = new TourismEntity();
         BeanUtils.copyProperties(dto,entity);
+        System.out.println(entity);
         boolean updated = tourismRepository.update(entity);
         if(updated){
             return "updated";

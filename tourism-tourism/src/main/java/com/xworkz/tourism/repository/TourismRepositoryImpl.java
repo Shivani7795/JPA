@@ -10,20 +10,20 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class TourismRepositoryImpl implements TourismRepository{
+public class TourismRepositoryImpl implements TourismRepository {
 
     EntityManagerFactory emf = null;
     EntityManager em = null;
     EntityTransaction et = null;
     TourismEntity entity;
-    List<TourismEntity> list=null;
-    Optional<TourismEntity> optional =null;
+    List<TourismEntity> list = null;
+    Optional<TourismEntity> optional = null;
 
     @Override
     public boolean save(TourismEntity tourismEntity) {
 
         System.out.println("save method in TourismRepositoryImpl");
-        System.out.println("Repository data: "+tourismEntity);
+        System.out.println("Repository data: " + tourismEntity);
         try {
             em = DBConnection.getEntityManager();
             et = em.getTransaction();
@@ -32,15 +32,13 @@ public class TourismRepositoryImpl implements TourismRepository{
             et.commit();
         } catch (PersistenceException e) {
             System.out.println(e.getMessage());
-            if(et!=null)
-            {
+            if (et != null) {
                 et.rollback();
                 System.out.println("roll backed");
                 return false;
             }
-        }finally {
-            if(em!=null && em.isOpen())
-            {
+        } finally {
+            if (em != null && em.isOpen()) {
                 em.close();
                 System.out.println("entityManager is closed");
             }
@@ -51,16 +49,14 @@ public class TourismRepositoryImpl implements TourismRepository{
 
     @Override
     public List<TourismEntity> getAllEntity() {
-        try{
-            em=DBConnection.getEntityManager();
-            list =em.createNamedQuery("getAllEntity").getResultList();
-        }catch (PersistenceException e)
-        {
+        try {
+            em = DBConnection.getEntityManager();
+            list = em.createNamedQuery("getAllEntity").getResultList();
+        } catch (PersistenceException e) {
             System.out.println(e.getMessage());
 
-        }finally {
-            if(em!=null && em.isOpen())
-            {
+        } finally {
+            if (em != null && em.isOpen()) {
                 em.close();
                 System.out.println("Entity manager is closed");
             }
@@ -70,19 +66,16 @@ public class TourismRepositoryImpl implements TourismRepository{
 
     @Override
     public Optional<TourismEntity> findById(Integer id) {
-        try{
-            em=DBConnection.getEntityManager();
-            TourismEntity tourism=(TourismEntity) em.createNamedQuery("findById").setParameter("id",id).getSingleResult();
-            if(tourism!=null)
-            {
+        try {
+            em = DBConnection.getEntityManager();
+            TourismEntity tourism = (TourismEntity) em.createNamedQuery("findById").setParameter("id", id).getSingleResult();
+            if (tourism != null) {
                 return Optional.of(tourism);
             }
-        }catch (PersistenceException e)
-        {
+        } catch (PersistenceException e) {
             System.out.println(e.getMessage());
-        }finally {
-            if(em!=null && em.isOpen())
-            {
+        } finally {
+            if (em != null && em.isOpen()) {
                 em.close();
                 System.out.println("Entity manager is closed");
             }
@@ -95,21 +88,29 @@ public class TourismRepositoryImpl implements TourismRepository{
         boolean isUpdated = false;
         try {
             em = DBConnection.getEntityManager();
-            em.getTransaction().begin();
-            int check = em.createNamedQuery("update").setParameter("packageName", entity.getPackageName())
+            et = em.getTransaction();
+            et.begin();
+
+            int updated = em.createNamedQuery("update")
+                    .setParameter("packageName", entity.getPackageName())
                     .setParameter("destination", entity.getDestination())
                     .setParameter("days", entity.getDays())
                     .setParameter("packagePrice", entity.getPackagePrice())
                     .setParameter("personCount", entity.getPersonCount())
+                    .setParameter("packageId", entity.getPackageId())
                     .executeUpdate();
-            if (check > 0) {
-                em.getTransaction().commit();
-                isUpdated = true;
 
+            if (updated > 0) {
+                et.commit();
+                isUpdated = true;
+            } else {
+                et.rollback();
             }
-        } catch (NoResultException | QueryException e) {
-            System.out.println(e.getMessage());
-            em.getTransaction().rollback();
+        } catch (PersistenceException e) {
+            System.out.println("Update failed: " + e.getMessage());
+            if (et != null && et.isActive()) {
+                et.rollback();
+            }
         } finally {
             if (em != null && em.isOpen()) {
                 em.close();
@@ -117,10 +118,4 @@ public class TourismRepositoryImpl implements TourismRepository{
         }
         return isUpdated;
     }
-
-
-    /*
-
-
-     */
 }
