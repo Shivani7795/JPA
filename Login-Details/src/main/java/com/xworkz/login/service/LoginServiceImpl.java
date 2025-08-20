@@ -28,16 +28,29 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public LoginDto acceptLogin(String email, String password) {
-        return null;
+        LoginEntity entity = loginRepository.acceptLogin();
+
+        if(entity == null){
+            return  null;
+        }
+        if(!encoder.matches(password,entity.getPassword())){
+            return null;
+        }
+        LoginDto dto = new LoginDto();
+        BeanUtils.copyProperties(entity,dto);
+        System.out.println("service fetch by login"+ entity);
+        return dto;
     }
 
     @Override
     public String getByEmail(String email) {
-        return "";
+        System.out.println("getByEmail in service");
+        return loginRepository.getByMail(email);
     }
 
     @Override
     public Long getByMobile(Long mobile) {
-        return 0L;
+        System.out.println("getByMobile in service");
+        return loginRepository.getByMobile(mobile);
     }
 }
