@@ -15,6 +15,9 @@ import javax.persistence.*;
 @Table(name = "makeup_info")
 @NamedQuery(name = "fingById",query="select a from MakeupEntity a where a.productId=:id")
 @NamedQuery(name = "getAllEntity",query = "select a from MakeupEntity a")
+
+
+
 public class MakeupEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
