@@ -19,6 +19,9 @@ import javax.persistence.*;
 
 
 
+
+
+
 public class MakeupEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
