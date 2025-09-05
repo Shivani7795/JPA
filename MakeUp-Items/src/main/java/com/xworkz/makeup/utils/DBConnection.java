@@ -33,10 +33,6 @@ public class DBConnection {
         {
             entityManagerFactory.close();
             System.out.println("EntityManagerFactory is closed");
-            rettttttt
-
-
-
         }
     }
 
