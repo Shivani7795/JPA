@@ -23,6 +23,11 @@ public class DBConnection {
         }
     }
 
+
+
+
+
+
     public static EntityManager getEntityManager()
     {
         return entityManagerFactory.createEntityManager();
