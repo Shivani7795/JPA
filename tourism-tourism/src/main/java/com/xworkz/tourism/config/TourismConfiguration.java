@@ -41,37 +41,5 @@ public class TourismConfiguration implements WebMvcConfigurer {
         registry.addResourceHandler("/image/**").addResourceLocations("/image/");
         registry.addResourceHandler("/js/**").addResourceLocations("/js/");
     }
-    
-        @Bean
-        public LocalContainerEntityManagerFactoryBean containerEntityManagerFactoryBean()
-        {
-            LocalContainerEntityManagerFactoryBean entityManagerFactoryBean=new LocalContainerEntityManagerFactoryBean();
-            entityManagerFactoryBean.setDataSource(dataSource());
-            HibernateJpaVendorAdapter hibernateJpaVendorAdapter=new HibernateJpaVendorAdapter();
-            entityManagerFactoryBean.setJpaVendorAdapter(hibernateJpaVendorAdapter);
-            entityManagerFactoryBean.setJpaProperties(getHibernateProperties());
-            entityManagerFactoryBean.setPackagesToScan(new String[]{"com.xworkz.tourism.entity"});
-            return entityManagerFactoryBean;
-        }
 
-        @Bean
-        public DataSource dataSource()
-        {
-            DriverManagerDataSource dataSource=new DriverManagerDataSource();
-            dataSource.setDriverClassName(environment.getProperty("jdbc.driverClassName"));
-            dataSource.setUrl(environment.getProperty("jdbc.url"));
-            dataSource.setUsername(environment.getProperty("jdbc.username"));
-            dataSource.setPassword(environment.getProperty("jdbc.password"));
-            return dataSource;
-        }
-
-        public Properties getHibernateProperties()
-        {
-            Properties properties=new Properties();
-            properties.setProperty("hibernate.dialect", environment.getProperty("hibernate.dialect"));
-            properties.setProperty("hibernate.hbm2ddl.auto", environment.getProperty("hibernate.hbm2ddl.auto"));
-            properties.setProperty("hibernate.show_sql", environment.getProperty("hibernate.show_sql"));
-            properties.setProperty("hibernate.format_sql", environment.getProperty("hibernate.format_sql"));
-            return properties;
-        }
     }
