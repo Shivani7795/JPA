@@ -42,4 +42,5 @@ public class TourismConfiguration implements WebMvcConfigurer {
         registry.addResourceHandler("/js/**").addResourceLocations("/js/");
     }
 
-    }
+
+}
