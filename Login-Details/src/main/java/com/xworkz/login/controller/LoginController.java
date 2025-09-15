@@ -65,6 +65,7 @@ public class LoginController {
             model.addAttribute("message","invalid email or password");
             return "login";
         }
+
         model.addAttribute("dto",dto);
         return "view";
     }
