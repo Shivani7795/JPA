@@ -161,10 +161,6 @@ public class ApplicationRepositoryImpl implements ApplicationRepository {
     public ApplicationEntity getApplicationByRating(Float rating) {
         return null;
     }
-
-
-
-
     @Override
     public ApplicationEntity getApplicationByLunchTime(LocalDate localDate) {
         return null;
