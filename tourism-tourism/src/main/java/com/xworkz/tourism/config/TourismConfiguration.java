@@ -20,8 +20,6 @@ import java.util.Properties;
 @PropertySource("classpath:application.properties")
 public class TourismConfiguration implements WebMvcConfigurer {
 
-
-
     @Autowired
     private Environment environment;
     public TourismConfiguration(){
