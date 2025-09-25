@@ -38,6 +38,9 @@ public class TourismConfiguration implements WebMvcConfigurer {
         return internalResourceViewResolver;
     }
 
+
+
+
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/image/**").addResourceLocations("/image/");
