@@ -52,3 +52,8 @@ public void addResourceHandlers(ResourceHandlerRegistry registry) {
     registry.addResourceHandler("/image/**").addResourceLocations("/image/");
     registry.addResourceHandler("/js/**").addResourceLocations("/js/");
 }
+@Override
+public void addResourceHandlers(ResourceHandlerRegistry registry) {
+    registry.addResourceHandler("/image/**").addResourceLocations("/image/");
+    registry.addResourceHandler("/js/**").addResourceLocations("/js/");
+}
