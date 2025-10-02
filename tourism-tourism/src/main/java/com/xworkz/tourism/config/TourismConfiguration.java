@@ -21,18 +21,17 @@ import java.util.Properties;
 public class TourismConfiguration implements WebMvcConfigurer {
 
 
-
     @Autowired
     private Environment environment;
-    public TourismConfiguration(){
+
+    public TourismConfiguration() {
         System.out.println("Tourism const");
     }
 
     @Bean
-    public InternalResourceViewResolver internalResourceViewResolver()
-    {
+    public InternalResourceViewResolver internalResourceViewResolver() {
         System.out.println("InternalResourceViewResolver method");
-        InternalResourceViewResolver internalResourceViewResolver=new InternalResourceViewResolver();
+        InternalResourceViewResolver internalResourceViewResolver = new InternalResourceViewResolver();
         internalResourceViewResolver.setPrefix("/");
         internalResourceViewResolver.setSuffix(".jsp");
         return internalResourceViewResolver;
@@ -45,7 +44,3 @@ public class TourismConfiguration implements WebMvcConfigurer {
         registry.addResourceHandler("/js/**").addResourceLocations("/js/");
     }
 }
-
-
-public TourismConfiguration(){
-    System.out.p
