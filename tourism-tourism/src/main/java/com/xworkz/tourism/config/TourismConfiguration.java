@@ -42,5 +42,7 @@ public class TourismConfiguration implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/image/**").addResourceLocations("/image/");
         registry.addResourceHandler("/js/**").addResourceLocations("/js/");
+
+
     }
 }
