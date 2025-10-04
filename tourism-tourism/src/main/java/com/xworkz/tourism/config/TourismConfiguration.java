@@ -46,3 +46,11 @@ public class TourismConfiguration implements WebMvcConfigurer {
 
     }
 }
+@Bean
+public InternalResourceViewResolver internalResourceViewResolver() {
+    System.out.println("InternalResourceViewResolver method");
+    InternalResourceViewResolver internalResourceViewResolver = new InternalResourceViewResolver();
+    internalResourceViewResolver.setPrefix("/");
+    internalResourceViewResolver.setSuffix(".jsp");
+    return internalResourceViewResolver;
+}
