@@ -54,3 +54,8 @@ public InternalResourceViewResolver internalResourceViewResolver() {
     internalResourceViewResolver.setSuffix(".jsp");
     return internalResourceViewResolver;
 }
+@Override
+public void addResourceHandlers(ResourceHandlerRegistry registry) {
+    registry.addResourceHandler("/image/**").addResourceLocations("/image/");
+    registry.addResourceHandler("/js/**").addResourceLocations("/js/");
+
