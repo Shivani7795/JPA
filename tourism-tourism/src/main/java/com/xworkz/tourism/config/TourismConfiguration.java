@@ -59,3 +59,5 @@ public void addResourceHandlers(ResourceHandlerRegistry registry) {
     registry.addResourceHandler("/image/**").addResourceLocations("/image/");
     registry.addResourceHandler("/js/**").addResourceLocations("/js/");
 
+    InternalResourceViewResolver internalResourceViewResolver = new InternalResourceViewResolver();
+    internalResourceViewResolver.setPrefix("/");
