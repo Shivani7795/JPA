@@ -82,3 +82,5 @@ public void addResourceHandlers(ResourceHandlerRegistry registry) {
                     InternalResourceViewResolver internalResourceViewResolver = new InternalResourceViewResolver();
                     internalResourceViewResolver.setPrefix("/");
                     internalResourceViewResolver.setSuffix(".jsp");
+                    internalResourceViewResolver.setSuffix(".jsp");
+                    internalResourceViewResolver.setSuffix(".jsp");
