@@ -17,4 +17,4 @@ public class TourismInitializer extends AbstractAnnotationConfigDispatcherServle
     protected String[] getServletMappings() {
         return new String[]  {"/"};
     }
-}
+
