@@ -151,3 +151,11 @@ public InternalResourceViewResolver internalResourceViewResolver() {
     internalResourceViewResolver.setSuffix(".jsp");
     return internalResourceViewResolver;
 }
+@Bean
+public InternalResourceViewResolver internalResourceViewResolver() {
+    System.out.println("InternalResourceViewResolver method");
+    InternalResourceViewResolver internalResourceViewResolver = new InternalResourceViewResolver();
+    internalResourceViewResolver.setPrefix("/");
+    internalResourceViewResolver.setSuffix(".jsp");
+    return internalResourceViewResolver;
+}
