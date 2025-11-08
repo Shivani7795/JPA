@@ -102,5 +102,5 @@ public InternalResourceViewResolver internalResourceViewResolver() {
     internalResourceViewResolver.setPrefix("/");
     internalResourceViewResolver.setSuffix(".jsp");
     return internalResourceViewResolver;
- }
+}
 
